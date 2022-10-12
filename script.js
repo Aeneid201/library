@@ -26,27 +26,35 @@ function Book(title, author, pages, status, details) {
 let myRow = document.querySelector(".myRow");
 function updateUI() {
   for (let i = 0; i < myLibrary.length; i++) {
-    let myHtml = `<div class="col-lg-4 col-sm-4 col-xs-12 mb-3 book-${i}">
-    <div class="card">
-      <figure></figure>
-      <div class="card-body">
-        <h5 class="card-title">${myLibrary[i].title} (${myLibrary[i].author})</h5>
-        <div class="card-text">
-        <p class="pages">${myLibrary[i].pages} pages</p>
-        <p class="details">${myLibrary[i].details}</p>
-        </p>
-        <div class="btns">
-          <a href="javascript:void(0);" data-book="${i}" class="btn status btn-primary"
-            >${myLibrary[i].status}</a
-          >
-          <a class="delete btn btn-danger" data-book="${i}" href="javascript:void(0);"
-            ><i class="fa fa-trash-alt"></i>Delete</a
-          >
+    let myHtml = `<div class="card">
+        <figure></figure>
+        <div class="card-body">
+          <h5 class="card-title">${myLibrary[i].title} (${myLibrary[i].author})</h5>
+          <div class="card-text">
+          <p class="pages">${myLibrary[i].pages} pages</p>
+          <p class="details">${myLibrary[i].details}</p>
+          </p>
+          <div class="btns">
+            <a href="javascript:void(0);" data-book="${i}" class="btn status btn-primary"
+              >${myLibrary[i].status}</a
+            >
+            <a class="delete btn btn-danger" data-book="${i}" href="javascript:void(0);"
+              ><i class="fa fa-trash-alt"></i>Delete</a
+            >
+          </div>
         </div>
-      </div>
-    </div>
-  </div>`;
-    myRow.insertAdjacentHTML("afterbegin", myHtml);
+      </div>`;
+    // myRow.insertAdjacentHTML("afterbegin", myHtml);
+    let newDiv = document.createElement("div");
+    newDiv.classList.add(
+      "col-lg-4",
+      "col-sm-4",
+      "col-xs-12",
+      "mb-3",
+      `book-${i}`
+    );
+    newDiv.innerHTML = myHtml;
+    myRow.append(newDiv);
   }
 }
 
@@ -100,7 +108,7 @@ function addNewBook(title, author, pages, status, details) {
   let index = myLibrary.length - 1;
 
   let myHtml = `<div class="col-lg-4 col-sm-4 col-xs-12 mb-3 book-${index}">
-    <div class="card">
+  <div class="card">
       <figure></figure>
       <div class="card-body">
         <h5 class="card-title">${title} (${author})</h5>
@@ -118,23 +126,25 @@ function addNewBook(title, author, pages, status, details) {
         </div>
       </div>
     </div>
-  </div>`;
+    </div>`;
   myRow.insertAdjacentHTML("afterbegin", myHtml);
 }
 
-// delete book
+// function to delete book
 let deleteBtn = document.getElementsByClassName("delete");
 
-for (let i = 0; i < deleteBtn.length; i++) {
-  deleteBtn[i].addEventListener("click", function () {
-    let index = this.getAttribute("data-book");
+function deleteBook(e) {
+  if (e.target.classList.contains("delete")) {
+    let index = e.target.getAttribute("data-book");
     let thisBook = document.querySelector(`.book-${index}`);
     myLibrary.splice(index, 1);
     thisBook.remove();
-  });
+  }
 }
 
-// change reading status
+myRow.addEventListener("click", deleteBook);
+
+// create method on Book prototype to change reading status
 Book.prototype.changeStatus = function () {
   if (this.innerHTML == "Want to read") {
     this.innerHTML = "Already read";
@@ -145,11 +155,13 @@ Book.prototype.changeStatus = function () {
   }
 };
 
-let statusBtn = document.getElementsByClassName("status");
-for (let i = 0; i < statusBtn.length; i++) {
-  statusBtn[i].addEventListener("click", function () {
-    let index = this.getAttribute("data-book");
+// function to change reading status
+function changeReadingStatus(e) {
+  if (e.target.classList.contains("status")) {
+    let index = e.target.getAttribute("data-book");
     myLibrary[index].changeStatus();
-    this.innerHTML = myLibrary[index].status;
-  });
+    e.target.innerHTML = myLibrary[index].status;
+  }
 }
+
+myRow.addEventListener("click", changeReadingStatus);
