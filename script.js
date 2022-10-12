@@ -1,16 +1,4 @@
 "use strict";
-// function Book(title, author, pages, status) {
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-//   this.status = status;
-//   this.info = function () {
-//     return `${title} by ${author}, ${pages} pages, ${status}`;
-//   };
-// }
-
-// const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read yet");
-// console.log(theHobbit.info());
 
 let myLibrary = [];
 
@@ -26,7 +14,8 @@ function Book(title, author, pages, status, details) {
 let myRow = document.querySelector(".myRow");
 function updateUI() {
   for (let i = 0; i < myLibrary.length; i++) {
-    let myHtml = `<div class="card">
+    let myHtml = `<div class="col-lg-4 col-sm-4 col-xs-12 mb-3 book-${i}">
+    <div class="card">
         <figure></figure>
         <div class="card-body">
           <h5 class="card-title">${myLibrary[i].title} (${myLibrary[i].author})</h5>
@@ -43,18 +32,9 @@ function updateUI() {
             >
           </div>
         </div>
+      </div>
       </div>`;
-    // myRow.insertAdjacentHTML("afterbegin", myHtml);
-    let newDiv = document.createElement("div");
-    newDiv.classList.add(
-      "col-lg-4",
-      "col-sm-4",
-      "col-xs-12",
-      "mb-3",
-      `book-${i}`
-    );
-    newDiv.innerHTML = myHtml;
-    myRow.append(newDiv);
+    myRow.insertAdjacentHTML("afterbegin", myHtml);
   }
 }
 
@@ -66,15 +46,7 @@ let firstBook = new Book(
   "The Hobbit, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien. It was published in 1937 to wide critical acclaim..."
 );
 
-let secondBook = new Book(
-  "The Moppet",
-  "J.R.R. Tolkien",
-  244,
-  "Already read",
-  "The Moppet, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien. It was published in 1937 to wide critical acclaim..."
-);
-
-myLibrary.push(firstBook, secondBook);
+myLibrary.push(firstBook);
 
 updateUI();
 
@@ -86,7 +58,6 @@ myForm.addEventListener("submit", function (e) {
   alertMsg.classList.remove("d-none");
 
   let formData = new FormData(myForm);
-  // console.log([...formData.entries()]);
 
   // get data
   let title = formData.get("title");
@@ -102,7 +73,6 @@ myForm.addEventListener("submit", function (e) {
 function addNewBook(title, author, pages, status, details) {
   let newBook = new Book(title, author, pages, status, details);
   myLibrary.push(newBook);
-  console.log(myLibrary);
 
   // the index in the books array, since we're using push(), every element added would be the last one in the array
   let index = myLibrary.length - 1;
