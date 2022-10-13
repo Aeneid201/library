@@ -67,6 +67,7 @@ myForm.addEventListener("submit", function (e) {
   let details = formData.get("details");
 
   addNewBook(title, author, pages, status, details);
+  myForm.reset();
 });
 
 // add book
