@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up to library</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="signup">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-sm-6 col-xs-12">
+            <div class="inner">
+              <form class="signupForm" autocomplete="off" novalidate>
+                <input
+                  placeholder="Email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  required
+                />
+                <input
+                  class="form-control"
+                  name="country"
+                  placeholder="Country"
+                  type="text"
+                  required
+                />
+                <input
+                  class="form-control"
+                  name="zipCode"
+                  placeholder="Zip Code"
+                  type="text"
+                  required
+                />
+                <input
+                  class="form-control"
+                  name="password"
+                  placeholder="Password"
+                  type="text"
+                  required
+                />
+                <input
+                  class="form-control"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  type="text"
+                  required
+                />
+
+                <p class="alert alert-danger d-none" aria-live="polite"></p>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="form.js"></script>
+  </body>
+</html>
